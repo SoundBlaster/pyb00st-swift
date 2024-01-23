@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B13D01482B6061E5002BD1E7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13D01472B6061E5002BD1E7 /* Constants.swift */; };
 		B13DFFEF2B605312002BD1E7 /* pyb00st.docc in Sources */ = {isa = PBXBuildFile; fileRef = B13DFFEE2B605312002BD1E7 /* pyb00st.docc */; };
 		B13DFFF52B605313002BD1E7 /* pyb00st.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B13DFFEA2B605312002BD1E7 /* pyb00st.framework */; };
 		B13DFFFA2B605313002BD1E7 /* pyb00stTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13DFFF92B605313002BD1E7 /* pyb00stTests.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B13D01472B6061E5002BD1E7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B13DFFEA2B605312002BD1E7 /* pyb00st.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = pyb00st.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B13DFFED2B605312002BD1E7 /* pyb00st.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pyb00st.h; sourceTree = "<group>"; };
 		B13DFFEE2B605312002BD1E7 /* pyb00st.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = pyb00st.docc; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 			children = (
 				B13DFFED2B605312002BD1E7 /* pyb00st.h */,
 				B13DFFEE2B605312002BD1E7 /* pyb00st.docc */,
+				B13D01472B6061E5002BD1E7 /* Constants.swift */,
 			);
 			path = pyb00st;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B13DFFEF2B605312002BD1E7 /* pyb00st.docc in Sources */,
+				B13D01482B6061E5002BD1E7 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +262,7 @@
 		B13D00022B605313002BD1E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LTJYDV3TH8;
@@ -278,6 +283,7 @@
 		B13D00032B605313002BD1E7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LTJYDV3TH8;
