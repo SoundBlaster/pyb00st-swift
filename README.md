@@ -94,11 +94,15 @@ BLE connection, LED control, and sensor notifications have been checked on a Mac
 
 Paired A+B commands are implemented and covered by packet tests. On the tested hub, starting both motors together powered the hub off; the cause remains under investigation. Paired operation and the external motor/sensor combinations still need hardware validation. The framework targets BOOST Move Hub firmware using current port IDs; support for every Powered Up hub or legacy firmware is outside its scope.
 
-## Next: let your agent use the hub
+## Let your agent use the hub
 
-**Planned: a native macOS MCP server powered by this framework.** An agent could connect to a Move Hub, change its LED, request bounded motor movements, and read sensor state through tools backed by the same Swift API.
+**An optional native macOS MCP server is available in [`MCP/`](MCP).** Enable its `MCP` SwiftPM trait to let an agent connect to a Move Hub, change its LED, request short motor pulses, and read sensor state through the official MCP Swift SDK.
 
-The intended path is a local Swift process communicating with an MCP client over stdio and with the hub over CoreBluetooth. This would let you build agent-driven experiments and robot workflows without adding a Python or JavaScript bridge. The MCP server is not implemented yet.
+```sh
+swift build --package-path MCP -c release --traits MCP --product pyb00st-mcp
+```
+
+The local Swift process talks to your MCP client over stdio and to the hub over CoreBluetooth. The trait is off by default, and the core framework keeps its existing platform requirements and zero third-party dependencies. See the [MCP guide](MCP/README.md) for client setup, tools, motion limits and verification status.
 
 ## Go deeper
 

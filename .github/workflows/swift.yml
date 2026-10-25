@@ -42,3 +42,21 @@ jobs:
           xcodebuild -quiet -project pyb00st.xcodeproj -scheme MoveHubDemo
           -destination 'generic/platform=iOS Simulator' -derivedDataPath "$RUNNER_TEMP/pyb00st-derived-data"
           CODE_SIGNING_ALLOWED=NO build
+
+  mcp:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain
+        run: swift --version
+      - name: MCP tests with official SDK
+        run: swift test --package-path MCP --traits MCP
+      - name: Enabled stdio server
+        run: |
+          MCP_BIN=$(swift build --package-path MCP --traits MCP --show-bin-path)/pyb00st-mcp
+          python3 MCP/Scripts/stdio-smoke.py "$MCP_BIN"
+      - name: Trait disabled by default
+        run: |
+          swift build --package-path MCP --product pyb00st-mcp
+          MCP_BIN=$(swift build --package-path MCP --show-bin-path)/pyb00st-mcp
+          python3 MCP/Scripts/stdio-smoke.py "$MCP_BIN" --disabled
