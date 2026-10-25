@@ -10,11 +10,13 @@ public enum Constants {
 
     // MARK: - Ports
 
-    public static let PORT_A: UInt8 = 0x37
-    public static let PORT_B: UInt8 = 0x38
-    public static let PORT_C: UInt8 = 0x01
-    public static let PORT_D: UInt8 = 0x02
-    public static let PORT_TILT: UInt8 = 0x3A
+    public static let PORT_A: UInt8 = HubPort.a.rawValue
+    public static let PORT_B: UInt8 = HubPort.b.rawValue
+    public static let PORT_C: UInt8 = HubPort.c.rawValue
+    public static let PORT_D: UInt8 = HubPort.d.rawValue
+    public static let PORT_TILT: UInt8 = HubPort.tilt.rawValue
+    /// Built-in virtual port combining the two internal motors on current firmware.
+    public static let PORT_AB: UInt8 = 0x10
 
     // MARK: - Device Types
 
@@ -64,11 +66,11 @@ public enum Constants {
 
     // MARK: - Motors
 
-    public static let MOTOR_A     = Data([0x37])
-    public static let MOTOR_B     = Data([0x38])
-    public static let MOTOR_AB    = Data([0x39])
-    public static let MOTOR_C     = Data([0x01])
-    public static let MOTOR_D     = Data([0x02])
+    public static let MOTOR_A     = Data([PORT_A])
+    public static let MOTOR_B     = Data([PORT_B])
+    public static let MOTOR_AB    = Data([PORT_AB])
+    public static let MOTOR_C     = Data([PORT_C])
+    public static let MOTOR_D     = Data([PORT_D])
 
     /// A group of all single motors.
     public static let MOTORS: [Data] = {

@@ -3,6 +3,20 @@ import Testing
 @testable import pyb00st
 
 struct CommandTests {
+    // Current Move Hub firmware reports A/B/C/D as 0/1/2/3, and the built-in
+    // A+B virtual motor as 0x10. These vectors intentionally use wire IDs,
+    // independently of the enum raw values, to catch obsolete 2017 addresses.
+    @Test(arguments: [(HubMotor.a, UInt8(0)), (.b, 1), (.c, 2), (.d, 3)])
+    func currentFirmwareMotorAddresses(_ fixture: (HubMotor, UInt8)) throws {
+        #expect(try HubCommand.motorForTime(fixture.0, milliseconds: 500, dutyCycle: 30)[3] == fixture.1)
+        #expect(try HubCommand.motorForAngle(fixture.0, degrees: 90, dutyCycle: 30)[3] == fixture.1)
+    }
+
+    @Test func currentFirmwarePairAddress() throws {
+        #expect(try HubCommand.motorsForTime(milliseconds: 500, dutyCycleA: 30, dutyCycleB: 30)[3] == 0x10)
+        #expect(try HubCommand.motorsForAngle(degrees: 90, dutyCycleA: 30, dutyCycleB: 30)[3] == 0x10)
+    }
+
     @Test(arguments: HubColor.allCases)
     func lightColors(_ color: HubColor) {
         #expect(HubCommand.hubLight(color) == Data([8, 0, 0x81, 0x32, 0x11, 0x51, 0, color.rawValue]))
@@ -10,14 +24,14 @@ struct CommandTests {
 
     @Test func goldenMotorPackets() throws {
         #expect(try HubCommand.motorForTime(.a, milliseconds: 1000, dutyCycle: -100) ==
-                Data([0x0C, 0, 0x81, 0x37, 0x11, 9, 0xE8, 3, 0x9C, 0x64, 0x7F, 3]))
+                Data([0x0C, 0, 0x81, 0, 0x11, 9, 0xE8, 3, 0x9C, 0x64, 0x7F, 3]))
         #expect(try HubCommand.motorsForTime(milliseconds: 65535, dutyCycleA: -1, dutyCycleB: 100) ==
-                Data([0x0D, 0, 0x81, 0x39, 0x11, 0x0A, 0xFF, 0xFF, 0xFF, 0x64, 0x64, 0x7F, 3]))
+                Data([0x0D, 0, 0x81, 0x10, 0x11, 0x0A, 0xFF, 0xFF, 0xFF, 0x64, 0x64, 0x7F, 3]))
         #expect(try HubCommand.motorForAngle(.d, degrees: 0x12345678, dutyCycle: 75) ==
-                Data([0x0E, 0, 0x81, 2, 0x11, 0x0B, 0x78, 0x56, 0x34, 0x12, 0x4B, 0x64, 0x7F, 3]))
+                Data([0x0E, 0, 0x81, 3, 0x11, 0x0B, 0x78, 0x56, 0x34, 0x12, 0x4B, 0x64, 0x7F, 3]))
         #expect(try HubCommand.motorsForAngle(degrees: 360, dutyCycleA: 50, dutyCycleB: -50) ==
-                Data([0x0F, 0, 0x81, 0x39, 0x11, 0x0C, 0x68, 1, 0, 0, 0x32, 0xCE, 0x64, 0x7F, 3]))
-        #expect(try HubCommand.weDoMotor(on: .c, dutyCycle: -1) == Data([8, 0, 0x81, 1, 0x11, 0x51, 0, 0xFF]))
+                Data([0x0F, 0, 0x81, 0x10, 0x11, 0x0C, 0x68, 1, 0, 0, 0x32, 0xCE, 0x64, 0x7F, 3]))
+        #expect(try HubCommand.weDoMotor(on: .c, dutyCycle: -1) == Data([8, 0, 0x81, 2, 0x11, 0x51, 0, 0xFF]))
     }
 
     @Test(arguments: HubMotor.allCases)
@@ -61,13 +75,13 @@ struct CommandTests {
 
     @Test func sensorPacketsAndPortValidation() throws {
         let cases: [(HubSensor, HubPort, Data)] = [
-            (.colorDistance, .c, Data([10, 0, 0x41, 1, 8, 1, 0, 0, 0, 1])),
-            (.encoder, .a, Data([10, 0, 0x41, 0x37, 2, 1, 0, 0, 0, 1])),
+            (.colorDistance, .c, Data([10, 0, 0x41, 2, 8, 1, 0, 0, 0, 1])),
+            (.encoder, .a, Data([10, 0, 0x41, 0, 2, 1, 0, 0, 0, 1])),
             (.hubTilt, .tilt, Data([10, 0, 0x41, 0x3A, 2, 1, 0, 0, 0, 1])),
-            (.weDoTilt(.angle), .c, Data([10, 0, 0x41, 1, 0, 1, 0, 0, 0, 1])),
-            (.weDoTilt(.tilt), .d, Data([10, 0, 0x41, 2, 1, 1, 0, 0, 0, 1])),
-            (.weDoTilt(.crash), .c, Data([10, 0, 0x41, 1, 2, 1, 0, 0, 0, 1])),
-            (.weDoDistance, .d, Data([10, 0, 0x41, 2, 0, 1, 0, 0, 0, 1])),
+            (.weDoTilt(.angle), .c, Data([10, 0, 0x41, 2, 0, 1, 0, 0, 0, 1])),
+            (.weDoTilt(.tilt), .d, Data([10, 0, 0x41, 3, 1, 1, 0, 0, 0, 1])),
+            (.weDoTilt(.crash), .c, Data([10, 0, 0x41, 2, 2, 1, 0, 0, 0, 1])),
+            (.weDoDistance, .d, Data([10, 0, 0x41, 3, 0, 1, 0, 0, 0, 1])),
         ]
         for (sensor, port, expected) in cases {
             #expect(try HubCommand.sensor(sensor, on: port) == expected)
@@ -88,6 +102,14 @@ struct CommandTests {
 }
 
 struct DecoderTests {
+    @Test func currentFirmwareEncoderNotifications() throws {
+        var decoder = HubNotificationDecoder()
+        try decoder.configure(.encoder, on: .a)
+        try decoder.configure(.encoder, on: .b)
+        #expect(try decoder.decode(Data([8, 0, 0x45, 0, 90, 0, 0, 0])) == .angle(port: .a, degrees: 90))
+        #expect(try decoder.decode(Data([8, 0, 0x45, 1, 0xA6, 0xFF, 0xFF, 0xFF])) == .angle(port: .b, degrees: -90))
+    }
+
     @Test(arguments: [HubPort.a, .b, .c, .d], [Int32.min, -360, -1, 0, 360, Int32.max])
     func signedEncoder(_ port: HubPort, _ angle: Int32) throws {
         var decoder = HubNotificationDecoder()
@@ -138,8 +160,8 @@ struct DecoderTests {
         var decoder = HubNotificationDecoder()
         try decoder.configure(.weDoDistance, on: .c)
         try decoder.configure(.weDoTilt(.tilt), on: .d)
-        #expect(try decoder.decode(Data([5, 0, 0x45, 1, 8])) == .weDoDistance(port: .c, distance: 8))
-        #expect(try decoder.decode(Data([5, 0, 0x45, 2, 7])) == .weDoTilt(port: .d, orientation: .left))
+        #expect(try decoder.decode(Data([5, 0, 0x45, 2, 8])) == .weDoDistance(port: .c, distance: 8))
+        #expect(try decoder.decode(Data([5, 0, 0x45, 3, 7])) == .weDoTilt(port: .d, orientation: .left))
         #expect(decoder.values.ports[.c]?.weDoDistance == 8)
     }
 
@@ -159,7 +181,7 @@ struct DecoderTests {
     @Test func malformedPacketsPreserveValues() throws {
         var decoder = HubNotificationDecoder()
         try decoder.configure(.encoder, on: .a)
-        let valid = Data([8, 0, 0x45, 0x37, 1, 0, 0, 0])
+        let valid = Data([8, 0, 0x45, 0, 1, 0, 0, 0])
         _ = try decoder.decode(valid)
         let snapshot = decoder.values
         for count in 0..<valid.count {
@@ -170,8 +192,8 @@ struct DecoderTests {
             packet[0] = UInt8(length)
             #expect(throws: HubError.malformedNotification) { try decoder.decode(packet) }
         }
-        for packet in [Data([3, 0, 0x45]), Data([5, 0, 0x45, 0x37, 0]), Data([6, 0, 1, 2, 6, 2]),
-                       Data([8, 1, 0x45, 0x37, 0, 0, 0, 0]), Data([6, 0, 4, 0x37, 0, 0])] {
+        for packet in [Data([3, 0, 0x45]), Data([5, 0, 0x45, 0, 0]), Data([6, 0, 1, 2, 6, 2]),
+                       Data([8, 1, 0x45, 0, 0, 0, 0, 0]), Data([6, 0, 4, 0, 0, 0])] {
             #expect(throws: HubError.malformedNotification) { try decoder.decode(packet) }
         }
         #expect(decoder.values == snapshot)
@@ -183,18 +205,18 @@ struct DecoderTests {
         #expect(try decoder.decode(storage.dropFirst()) == .button(isPressed: true))
         #expect(try decoder.decode(Data([3, 0, 0xFF])) == nil)
         #expect(try decoder.decode(Data([5, 0, 0x45, 0xFF, 0])) == nil)
-        #expect(try decoder.decode(Data([5, 0, 0x45, 1, 0])) == nil)
+        #expect(try decoder.decode(Data([5, 0, 0x45, 2, 0])) == nil)
         #expect(try decoder.decode(Data([5, 0, 5, 0x81, 6])) == .hubError(command: 0x81, code: 6))
     }
 
     @Test func detachmentClearsConfiguration() throws {
         var decoder = HubNotificationDecoder()
         try decoder.configure(.encoder, on: .c)
-        _ = try decoder.decode(Data([8, 0, 0x45, 1, 90, 0, 0, 0]))
-        #expect(try decoder.decode(Data([5, 0, 4, 1, 0])) == .detached(port: .c))
+        _ = try decoder.decode(Data([8, 0, 0x45, 2, 90, 0, 0, 0]))
+        #expect(try decoder.decode(Data([5, 0, 4, 2, 0])) == .detached(port: .c))
         #expect(decoder.values.ports[.c] == nil)
         #expect(decoder.sensors[.c] == nil)
-        #expect(try decoder.decode(Data([8, 0, 0x45, 1, 90, 0, 0, 0])) == nil)
+        #expect(try decoder.decode(Data([8, 0, 0x45, 2, 90, 0, 0, 0])) == nil)
     }
 }
 
@@ -262,13 +284,13 @@ struct MoveHubTests {
         try await hub.start()
         var events: [HubEvent] = []
         hub.onEvent = { events.append($0) }
-        transport.writeHook = { _ in transport.onNotification?(Data([8, 0, 0x45, 1, 0xFF, 0xFF, 0xFF, 0xFF])) }
+        transport.writeHook = { _ in transport.onNotification?(Data([8, 0, 0x45, 2, 0xFF, 0xFF, 0xFF, 0xFF])) }
         try await hub.listen(to: .encoder, on: .c)
         #expect(hub.values.ports[.c]?.angle == -1)
         #expect(events == [.angle(port: .c, degrees: -1)])
         transport.writeHook = nil
         try await hub.stopListening(on: .c)
-        #expect(transport.packets.last == Data([10, 0, 0x41, 1, 2, 1, 0, 0, 0, 0]))
+        #expect(transport.packets.last == Data([10, 0, 0x41, 2, 2, 1, 0, 0, 0, 0]))
         #expect(hub.values.ports[.c] == nil)
         hub.stop()
         #expect(!hub.isConnected)

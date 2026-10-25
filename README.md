@@ -84,6 +84,8 @@ The reference is [pyb00st at `bf15272481d0541461923820f98983d9f10ebcc9`](https:/
 
 Raw sensor distances retain the original device units; they are not converted to centimeters. WeDo roll/pitch and encoder positions are signed. Optional values mean no reading or an unknown color/orientation. Color/distance mode preserves pyb00st's interpretation: a `0xFF` color byte selects the distance reading; otherwise the reading contains a color.
 
+Port addressing targets current BOOST firmware: A/B/C/D use `0x00/0x01/0x02/0x03`, and paired A+B uses the built-in virtual port `0x10`, matching the [current Move Hub implementation in pylgbst](https://github.com/undera/pylgbst/blob/master/pylgbst/hub.py). The Python reference's 2017 motor IDs (`0x37/0x38/0x39`) are obsolete for this firmware and cause the hub to reject motor output commands. LED (`0x32`) and tilt (`0x3A`) retain their IDs. Firmware using the older port layout is not supported by this mapping.
+
 Full hub tilt, paired encoder readings, ambient light, continuous interactive-motor speed, steering, and motor-position reset were unfinished in the Python reference and are not implemented here. The unusable full-tilt mode is deliberately absent from the typed API. This is a port of the original BOOST behavior, not a complete implementation of every modern Powered Up device or firmware.
 
 ## Protocol and error handling

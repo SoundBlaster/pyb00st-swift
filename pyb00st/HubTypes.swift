@@ -1,11 +1,11 @@
 import Foundation
 
-/// A Move Hub input port, using the port identifiers from pyb00st.
+/// A Move Hub input port, using the wire identifiers of current BOOST firmware.
 public enum HubPort: UInt8, CaseIterable, Sendable {
-    case a = 0x37
-    case b = 0x38
-    case c = 0x01
-    case d = 0x02
+    case a = 0x00
+    case b = 0x01
+    case c = 0x02
+    case d = 0x03
     case tilt = 0x3A
 
     var isExternal: Bool { self == .c || self == .d }
@@ -13,10 +13,10 @@ public enum HubPort: UInt8, CaseIterable, Sendable {
 
 /// An interactive motor output. Use the paired methods to drive A and B together.
 public enum HubMotor: UInt8, CaseIterable, Sendable {
-    case a = 0x37
-    case b = 0x38
-    case c = 0x01
-    case d = 0x02
+    case a = 0x00
+    case b = 0x01
+    case c = 0x02
+    case d = 0x03
 }
 
 /// The hub light's indexed colors.

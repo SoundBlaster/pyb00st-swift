@@ -19,7 +19,7 @@ public enum HubCommand {
         let duration = try timeBytes(milliseconds)
         let a = try speedByte(dutyCycleA)
         let b = try speedByte(dutyCycleB)
-        return Data([13, 0, 0x81, 0x39, 0x11, 0x0A] + duration + [a, b, 0x64, 0x7F, 3])
+        return Data([13, 0, 0x81, Constants.PORT_AB, 0x11, 0x0A] + duration + [a, b, 0x64, 0x7F, 3])
     }
 
     /// Run one motor through a nonnegative angle. The duty cycle supplies the direction.
@@ -34,7 +34,7 @@ public enum HubCommand {
         let angle = try angleBytes(degrees)
         let a = try speedByte(dutyCycleA)
         let b = try speedByte(dutyCycleB)
-        return Data([15, 0, 0x81, 0x39, 0x11, 0x0C] + angle + [a, b, 0x64, 0x7F, 3])
+        return Data([15, 0, 0x81, Constants.PORT_AB, 0x11, 0x0C] + angle + [a, b, 0x64, 0x7F, 3])
     }
 
     /// Set a WeDo 2.0 motor's duty cycle on C or D. Zero stops the motor.
