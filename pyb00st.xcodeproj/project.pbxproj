@@ -20,6 +20,11 @@
 		B13DFFF52B605313002BD1E7 /* pyb00st.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B13DFFEA2B605312002BD1E7 /* pyb00st.framework */; };
 		B13DFFFA2B605313002BD1E7 /* pyb00stTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13DFFF92B605313002BD1E7 /* pyb00stTests.swift */; };
 		B13DFFFB2B605313002BD1E7 /* pyb00st.h in Headers */ = {isa = PBXBuildFile; fileRef = B13DFFED2B605312002BD1E7 /* pyb00st.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00000000000000000000014 /* MoveHubDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0000000000000000000000A /* MoveHubDemoApp.swift */; };
+		D00000000000000000000015 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0000000000000000000000B /* ContentView.swift */; };
+		D00000000000000000000016 /* DemoSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0000000000000000000000C /* DemoSession.swift */; };
+		D0000000000000000000001E /* pyb00st.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B13DFFEA2B605312002BD1E7 /* pyb00st.framework */; };
+		D0000000000000000000001F /* pyb00st.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B13DFFEA2B605312002BD1E7 /* pyb00st.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +35,12 @@
 			remoteGlobalIDString = B13DFFE92B605312002BD1E7;
 			remoteInfo = pyb00st;
 		};
+		D00000000000000000000008 /* PBXContainerItemProxy */ = {isa = PBXContainerItemProxy; containerPortal = B13DFFE12B605312002BD1E7 /* Project object */; proxyType = 1; remoteGlobalIDString = B13DFFE92B605312002BD1E7; remoteInfo = pyb00st; };
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D00000000000000000000007 /* Embed Frameworks */ = {isa = PBXCopyFilesBuildPhase; buildActionMask = 2147483647; dstPath = ""; dstSubfolderSpec = 10; files = (D0000000000000000000001F /* pyb00st.framework in Embed Frameworks */, ); name = "Embed Frameworks"; runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AB0000000000000000000000 /* HubTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubTypes.swift; sourceTree = "<group>"; };
@@ -47,6 +57,11 @@
 		B13DFFEE2B605312002BD1E7 /* pyb00st.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = pyb00st.docc; sourceTree = "<group>"; };
 		B13DFFF42B605313002BD1E7 /* pyb00stTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pyb00stTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B13DFFF92B605313002BD1E7 /* pyb00stTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pyb00stTests.swift; sourceTree = "<group>"; };
+		D0000000000000000000000A /* MoveHubDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveHubDemoApp.swift; sourceTree = "<group>"; };
+		D0000000000000000000000B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D0000000000000000000000C /* DemoSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSession.swift; sourceTree = "<group>"; };
+		D0000000000000000000000D /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		D00000000000000000000002 /* MoveHubDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoveHubDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +80,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D00000000000000000000004 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (D0000000000000000000001E /* pyb00st.framework in Frameworks */, ); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -72,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				B13DFFEC2B605312002BD1E7 /* pyb00st */,
+				D00000000000000000000003 /* Demo */,
 				B13DFFF82B605313002BD1E7 /* pyb00stTests */,
 				B13DFFEB2B605312002BD1E7 /* Products */,
 			);
@@ -82,6 +99,7 @@
 			children = (
 				B13DFFEA2B605312002BD1E7 /* pyb00st.framework */,
 				B13DFFF42B605313002BD1E7 /* pyb00stTests.xctest */,
+				D00000000000000000000002 /* MoveHubDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -110,6 +128,17 @@
 				AD0000000000000000000000 /* HubWriteQueueTests.swift */,
 			);
 			path = pyb00stTests;
+			sourceTree = "<group>";
+		};
+		D00000000000000000000003 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				D0000000000000000000000A /* MoveHubDemoApp.swift */,
+				D0000000000000000000000B /* ContentView.swift */,
+				D0000000000000000000000C /* DemoSession.swift */,
+				D0000000000000000000000D /* macOS.entitlements */,
+			);
+			path = Demo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +191,17 @@
 			productReference = B13DFFF42B605313002BD1E7 /* pyb00stTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		D00000000000000000000001 /* MoveHubDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D00000000000000000000028 /* Build configuration list for PBXNativeTarget "MoveHubDemo" */;
+			buildPhases = (D00000000000000000000005, D00000000000000000000004, D00000000000000000000006, D00000000000000000000007, );
+			buildRules = ();
+			dependencies = (D00000000000000000000009, );
+			name = MoveHubDemo;
+			productName = MoveHubDemo;
+			productReference = D00000000000000000000002 /* MoveHubDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -195,6 +235,7 @@
 			targets = (
 				B13DFFE92B605312002BD1E7 /* pyb00st */,
 				B13DFFF32B605313002BD1E7 /* pyb00stTests */,
+				D00000000000000000000001 /* MoveHubDemo */,
 			);
 		};
 /* End PBXProject section */
@@ -214,6 +255,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D00000000000000000000006 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -242,6 +284,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D00000000000000000000005 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (D00000000000000000000014, D00000000000000000000015, D00000000000000000000016, ); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -250,6 +293,7 @@
 			target = B13DFFE92B605312002BD1E7 /* pyb00st */;
 			targetProxy = B13DFFF62B605313002BD1E7 /* PBXContainerItemProxy */;
 		};
+		D00000000000000000000009 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = B13DFFE92B605312002BD1E7 /* pyb00st */; targetProxy = D00000000000000000000008 /* PBXContainerItemProxy */; };
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -267,7 +311,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -276,7 +320,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -467,7 +511,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -476,7 +520,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -490,6 +534,60 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
+		};
+		D00000000000000000000029 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = Demo/macOS.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P8T2366K8X;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Connect to your LEGO BOOST Move Hub to control motors and read sensors.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.egormerkushev.pyb00st.demo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D0000000000000000000002A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = Demo/macOS.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P8T2366K8X;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Connect to your LEGO BOOST Move Hub to control motors and read sensors.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.egormerkushev.pyb00st.demo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -521,6 +619,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		D00000000000000000000028 /* Build configuration list for PBXNativeTarget "MoveHubDemo" */ = {isa = XCConfigurationList; buildConfigurations = (D00000000000000000000029, D0000000000000000000002A, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
 /* End XCConfigurationList section */
 	};
 	rootObject = B13DFFE12B605312002BD1E7 /* Project object */;

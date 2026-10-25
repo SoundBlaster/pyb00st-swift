@@ -2,7 +2,7 @@
 
 A native Swift port of [JorgePe/pyb00st](https://github.com/JorgePe/pyb00st) for the LEGO® BOOST Move Hub on iOS and macOS. Uses CoreBluetooth; no Python, BlueZ, BlueGiga adapter, or third-party dependencies are required.
 
-Requires Swift 6 / Xcode 16 or newer. The library declares iOS 13+ and macOS 11+; iOS 12 is no longer supported because the public API uses Swift concurrency. Newer Xcode releases may require a higher deployment target for builds with their bundled SDK (Xcode 27.1 requires iOS 15+ / macOS 12+). Use an appropriate SDK when building for older OS versions. CI builds iOS with target 15 and runs macOS tests with target 14.2; those checks do not establish runtime compatibility with the declared minimum OS versions.
+Requires Swift 6 / Xcode 16 or newer. The Swift Package declares iOS 13+ and macOS 11+; iOS 12 is no longer supported because the public API uses Swift concurrency. The Xcode framework target uses iOS 15+ / macOS 12+ to build with Xcode 27.1 without command-line overrides. Use the package and an appropriate SDK when building for older OS versions. CI build and test checks do not establish runtime compatibility with the minimum OS versions.
 
 ## Installation
 
@@ -48,6 +48,14 @@ func demo() async throws {
 ```
 
 To select a specific hub, use `MoveHub(identifier: peripheralUUID)` or `MoveHub(name: "advertised name")`. Apple exposes a peripheral UUID rather than the MAC address accepted by Python. The default timeout is 10 seconds for connection setup and each active write; `MoveHub(timeout: 30)` changes it. Connection setup includes service discovery and notification subscription. Enabling individual sensor modes remains explicit.
+
+## SwiftUI demo app
+
+Open `pyb00st.xcodeproj`, choose the shared **MoveHubDemo** scheme, select **My Mac** or an iOS device, and Run. The demo requires iOS 17+ / macOS 14+ for Observation; the library keeps its lower deployment targets. Bluetooth usage text and the macOS sandbox Bluetooth entitlement are already configured in the app target. Select your signing team for device builds.
+
+Press the Move Hub's green button and click **Connect**. The app subscribes to button, basic tilt, and A/B encoder readings, and offers four LED colors and 500 ms motor pulses for A, B, or the pair. Speed is limited to -50...50 percent. Controls are disabled until connected. **Cancel connection** and **Disconnect** close the session; the app also disconnects when backgrounded. This small example uses `DemoSession` to own `MoveHub`, bridge callbacks into Observation, and keep all UI state on the main actor.
+
+Simulator builds verify the UI but do not provide a physical BLE connection. Use a real iPhone or Mac with a Move Hub for motor and sensor checks.
 
 ## API parity
 
