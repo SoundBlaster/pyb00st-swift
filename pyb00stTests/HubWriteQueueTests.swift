@@ -127,4 +127,111 @@ struct HubWriteQueueTests {
         await #expect(throws: failure) { try await queue.write(Data([1])) }
         #expect(failures == 1)
     }
+
+    @Test func canceledQueuedWriteIsSkippedWhenAcknowledgmentWinsActorRace() async throws {
+        let (submitted, signal) = AsyncStream<Data>.makeStream()
+        var iterator = submitted.makeAsyncIterator()
+        var packets: [Data] = []
+        var failures = 0
+        let queue = HubWriteQueue(timeoutNanoseconds: 60_000_000_000, submit: { data in
+            packets.append(data)
+            signal.yield(data)
+            return .awaitingResponse
+        }, onFailure: { _ in failures += 1 })
+        let first = Task { try await queue.write(Data([1])) }
+        #expect(await iterator.next() == Data([1]))
+
+        let (queued, queuedSignal) = AsyncStream<Int>.makeStream()
+        var queuedIterator = queued.makeAsyncIterator()
+        let second = Task {
+            queuedSignal.yield(2)
+            // Both operations run on MainActor: this task cannot yield to the
+            // test again until write has installed its pending continuation.
+            try await queue.write(Data([2]))
+        }
+        #expect(await queuedIterator.next() == 2)
+        let third = Task {
+            queuedSignal.yield(3)
+            try await queue.write(Data([3]))
+        }
+        #expect(await queuedIterator.next() == 3)
+
+        // No suspension here: acknowledge drains before the deferred onCancel
+        // task can run. The canceled motor packet must never reach submit.
+        second.cancel()
+        queue.acknowledge()
+        #expect(packets == [Data([1]), Data([3])])
+        await #expect(throws: CancellationError.self) { try await second.value }
+        try await first.value
+        queue.acknowledge()
+        try await third.value
+        #expect(failures == 0)
+        signal.finish()
+        queuedSignal.finish()
+    }
+
+    @Test(arguments: [false, true])
+    func cancelingBackpressuredWritePreservesSession(readinessWinsActorRace: Bool) async throws {
+        let (attempts, signal) = AsyncStream<Void>.makeStream()
+        var iterator = attempts.makeAsyncIterator()
+        var ready = false
+        var packets: [Data] = []
+        var failures = 0
+        let queue = HubWriteQueue(timeoutNanoseconds: 60_000_000_000, submit: { data in
+            signal.yield(())
+            guard ready else { return .blocked }
+            packets.append(data)
+            return .completed
+        }, onFailure: { _ in failures += 1 })
+        let write = Task { try await queue.write(Data([1])) }
+        _ = await iterator.next()
+        write.cancel()
+        if readinessWinsActorRace {
+            ready = true
+            queue.drain()
+        }
+        await #expect(throws: CancellationError.self) { try await write.value }
+        #expect(packets.isEmpty)
+        #expect(failures == 0)
+        ready = true
+        try await queue.write(Data([2]))
+        #expect(packets == [Data([2])])
+        signal.finish()
+    }
+
+    @Test func activeCancellationStillInvalidatesSessionWhenAcknowledgmentWinsActorRace() async {
+        let (submitted, signal) = AsyncStream<Void>.makeStream()
+        var iterator = submitted.makeAsyncIterator()
+        var packets: [Data] = []
+        var failures = 0
+        let queue = HubWriteQueue(timeoutNanoseconds: 60_000_000_000, submit: { data in
+            packets.append(data)
+            signal.yield(())
+            return .awaitingResponse
+        }, onFailure: { error in
+            #expect(error is CancellationError)
+            failures += 1
+        })
+        let first = Task { try await queue.write(Data([1])) }
+        _ = await iterator.next()
+        let (queued, queuedSignal) = AsyncStream<Void>.makeStream()
+        var queuedIterator = queued.makeAsyncIterator()
+        let second = Task {
+            queuedSignal.yield(())
+            try await queue.write(Data([2]))
+        }
+        _ = await queuedIterator.next()
+        first.cancel()
+        queue.acknowledge()
+        #expect(packets == [Data([1])])
+        #expect(failures == 1)
+        // On the old implementation, finish the incorrectly sent second packet
+        // so a failing regression does not have to wait for its timeout.
+        queue.acknowledge()
+        await #expect(throws: CancellationError.self) { try await first.value }
+        await #expect(throws: CancellationError.self) { try await second.value }
+        #expect(failures == 1)
+        signal.finish()
+        queuedSignal.finish()
+    }
 }
