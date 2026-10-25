@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC0000000000000000000000 /* HubTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0000000000000000000000 /* HubTypes.swift */; };
+		AC0000000000000000000001 /* HubCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0000000000000000000001 /* HubCommand.swift */; };
+		AC0000000000000000000002 /* HubNotificationDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0000000000000000000002 /* HubNotificationDecoder.swift */; };
+		AC0000000000000000000003 /* HubTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0000000000000000000003 /* HubTransport.swift */; };
+		AC0000000000000000000004 /* MoveHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0000000000000000000004 /* MoveHub.swift */; };
+		AC0000000000000000000005 /* CoreBluetoothTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0000000000000000000005 /* CoreBluetoothTransport.swift */; };
+		AC0000000000000000000006 /* HubWriteQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0000000000000000000006 /* HubWriteQueue.swift */; };
+		AE0000000000000000000000 /* HubWriteQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0000000000000000000000 /* HubWriteQueueTests.swift */; };
 		B13D01482B6061E5002BD1E7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13D01472B6061E5002BD1E7 /* Constants.swift */; };
 		B13DFFEF2B605312002BD1E7 /* pyb00st.docc in Sources */ = {isa = PBXBuildFile; fileRef = B13DFFEE2B605312002BD1E7 /* pyb00st.docc */; };
 		B13DFFF52B605313002BD1E7 /* pyb00st.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B13DFFEA2B605312002BD1E7 /* pyb00st.framework */; };
@@ -25,6 +33,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AB0000000000000000000000 /* HubTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubTypes.swift; sourceTree = "<group>"; };
+		AB0000000000000000000001 /* HubCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubCommand.swift; sourceTree = "<group>"; };
+		AB0000000000000000000002 /* HubNotificationDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubNotificationDecoder.swift; sourceTree = "<group>"; };
+		AB0000000000000000000003 /* HubTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubTransport.swift; sourceTree = "<group>"; };
+		AB0000000000000000000004 /* MoveHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveHub.swift; sourceTree = "<group>"; };
+		AB0000000000000000000005 /* CoreBluetoothTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreBluetoothTransport.swift; sourceTree = "<group>"; };
+		AB0000000000000000000006 /* HubWriteQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubWriteQueue.swift; sourceTree = "<group>"; };
+		AD0000000000000000000000 /* HubWriteQueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubWriteQueueTests.swift; sourceTree = "<group>"; };
 		B13D01472B6061E5002BD1E7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B13DFFEA2B605312002BD1E7 /* pyb00st.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = pyb00st.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B13DFFED2B605312002BD1E7 /* pyb00st.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pyb00st.h; sourceTree = "<group>"; };
@@ -76,6 +92,13 @@
 				B13DFFED2B605312002BD1E7 /* pyb00st.h */,
 				B13DFFEE2B605312002BD1E7 /* pyb00st.docc */,
 				B13D01472B6061E5002BD1E7 /* Constants.swift */,
+				AB0000000000000000000006 /* HubWriteQueue.swift */,
+				AB0000000000000000000005 /* CoreBluetoothTransport.swift */,
+				AB0000000000000000000004 /* MoveHub.swift */,
+				AB0000000000000000000003 /* HubTransport.swift */,
+				AB0000000000000000000002 /* HubNotificationDecoder.swift */,
+				AB0000000000000000000001 /* HubCommand.swift */,
+				AB0000000000000000000000 /* HubTypes.swift */,
 			);
 			path = pyb00st;
 			sourceTree = "<group>";
@@ -84,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				B13DFFF92B605313002BD1E7 /* pyb00stTests.swift */,
+				AD0000000000000000000000 /* HubWriteQueueTests.swift */,
 			);
 			path = pyb00stTests;
 			sourceTree = "<group>";
@@ -199,6 +223,13 @@
 			files = (
 				B13DFFEF2B605312002BD1E7 /* pyb00st.docc in Sources */,
 				B13D01482B6061E5002BD1E7 /* Constants.swift in Sources */,
+				AC0000000000000000000006 /* HubWriteQueue.swift in Sources */,
+				AC0000000000000000000005 /* CoreBluetoothTransport.swift in Sources */,
+				AC0000000000000000000004 /* MoveHub.swift in Sources */,
+				AC0000000000000000000003 /* HubTransport.swift in Sources */,
+				AC0000000000000000000002 /* HubNotificationDecoder.swift in Sources */,
+				AC0000000000000000000001 /* HubCommand.swift in Sources */,
+				AC0000000000000000000000 /* HubTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B13DFFFA2B605313002BD1E7 /* pyb00stTests.swift in Sources */,
+				AE0000000000000000000000 /* HubWriteQueueTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,7 +259,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = LTJYDV3TH8;
+				DEVELOPMENT_TEAM = P8T2366K8X;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -235,7 +267,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -254,7 +286,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -265,7 +297,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = LTJYDV3TH8;
+				DEVELOPMENT_TEAM = P8T2366K8X;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
@@ -275,7 +307,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -286,7 +318,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = LTJYDV3TH8;
+				DEVELOPMENT_TEAM = P8T2366K8X;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
@@ -296,7 +328,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -427,7 +459,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = LTJYDV3TH8;
+				DEVELOPMENT_TEAM = P8T2366K8X;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -435,7 +467,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -454,7 +486,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
