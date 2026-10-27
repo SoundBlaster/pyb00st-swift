@@ -1,5 +1,7 @@
 # pyb00st-swift
 
+![pyb00st-swift: LEGO BOOST Move Hub, a Swift bird made of bricks, and MCP](Documentation/Images/pyb00st-swift-banner.png)
+
 **Make your LEGO® BOOST move. In Swift.**
 
 Build iPhone and Mac apps that control a LEGO BOOST Move Hub: turn motors, change the LED, and react to sensor readings. Add one Swift package and use a typed, asynchronous API backed by Apple's CoreBluetooth.
